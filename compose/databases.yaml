@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    container_name: mongo
+    ports:
+        - "27017:27017"
+    volumes:
+        - /etc/localtime:/etc/localtime
+        - ../data/mongo/:/data/
+        - ../data/mongo/db:/data/db
+        - ../config/mongo/mongod.conf:/etc/mongod.conf:ro
+        - ../config/mongo/init.js:/docker-entrypoint-initdb.d/init.js:ro
+    command: ["mongod", "-f", "/etc/mongod.conf"]
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    env_file:
+      - "../config/mysql/mysql.env"
+    ports:
+      - "3306:3306"
+    volumes:
+      - "/etc/localtime:/etc/localtime"
+      - "../config/mysql/mysqld.cnf/etc/mysql/my.cnf"
+      - "../data/mysql:/var/lib/mysql"
+
+  redis:
+    image: redis:alpine
+    container_name: "redis"
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - /etc/localtime:/etc/localtime
