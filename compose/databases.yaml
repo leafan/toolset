@@ -20,17 +20,17 @@ services:
     container_name: mysql
     restart: always
     env_file:
-      - "../config/mysql/mysql.env"
+      - ../config/mysql/mysql.env
     ports:
       - "3306:3306"
     volumes:
-      - "/etc/localtime:/etc/localtime"
-      - "../config/mysql/mysqld.cnf/etc/mysql/my.cnf"
-      - "../data/mysql:/var/lib/mysql"
+      - /etc/localtime:/etc/localtime
+      - ../config/mysql/mysqld.cnf:/etc/mysql/my.cnf
+      - ../data/mysql:/var/lib/mysql
 
   redis:
     image: redis:alpine
-    container_name: "redis"
+    container_name: redis
     restart: always
     ports:
       - "6379:6379"
