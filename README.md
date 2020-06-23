@@ -18,21 +18,41 @@ Surely, patch is much more preferred...
     sudo apt update
     sudo apt install -y docker.io && sudo apt install -y docker-compose
     sudo apt install -y make
-    cp .env.example .env
     ```
 + modify /etc/docker/daemon.json, set the max log size to avoid some disk errors
     ```
+    vi /etc/docker/daemon.json  # add log-opts param:
     {
         "log-opts":{ "max-size" :"100m","max-file":"1"}
     }
+    
+    # restart docker as to enable the log settings
+    # other restart options is also accepted.
+    /etc/init.d/docker restart  
+    ```
+
++ git clone the code and etc
+    ```
+    git@github.com:leafan/toolset.git
+    cd toolset
+    cp .env.example .env
     ```
 
 # USAGE
 
 ## Basic Use
 
-To run them, you should install the prerequisite first, then just run: make, it will start automatically.
-Below is the detail usage for basic commands:
+To run them, you should install the prerequisite first, then just do: make, it will start automatically:
+```
+make run            # Run all the containers in app list
+```
+
+Or just create one:
+```
+make one APP=redis  # Only up redis container
+```
+
+Below is the detail commands:
 ```
 make        # Create the containers, run them all
 make run    # Same as make which is the default command
@@ -45,20 +65,23 @@ make logsf  # View the latest 100 lines output and forcely to follow the newest 
 if you just want to view one container logs, or run one container, just add an variable APP in the end of commands:
 
 ```
-make logsf APP=mysql    # just show the mysql logs
-make one APP=mysql      # just start the mysql container
-make restart APP=mysql  # just restart the mysql container
-make stop APP=mysql     # just stop the mysql container
+make logsf   APP=mysql      # just show the mysql logs
+make one     APP=mysql      # just start the mysql container
+make restart APP=mysql      # just restart the mysql container
+make stop    APP=mysql      # just stop the mysql container
 ```
 
 ## Configure
 All of the config files are under ${pwd}/config/${app_name}, which ${app_name} means the container name, such as mysql etc..
-You can configure them follow the official documents, here pass... 
+You also can configure them follow the official documents ... 
 
 ## Data directory
 The container data will be exported under ${pwd}/data/${app_name}, also ${app_name} means the container name.
-If you want to delete the data, just do: make stop && rm -rf data/${app_name} && make run
+If you want to delete the data, just do: 
+```
+make stop && rm -rf data/${app_name} && make run  # replace ${app_name} to your container name
+```
 
 # Contact
 
-If you want any further information, feel free to contact me at  **leafan@qq.com** ...
+If you want any further information, feel free to contact me at  **unknown:)** ...
