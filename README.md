@@ -27,8 +27,7 @@ Surely, patch is much more preferred...
     }
     
     # restart docker as to enable the log settings
-    # other restart options is also accepted.
-    /etc/init.d/docker restart  
+    /etc/init.d/docker restart  # or run: systemctl restart docker
     ```
 
 + git clone the code and etc

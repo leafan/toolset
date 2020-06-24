@@ -2,7 +2,7 @@
 
 include .env
 
-COMPOSE = docker-compose -f compose/databases.yaml
+COMPOSE = docker-compose -f compose/databases.yaml -f compose/proxy.yaml
 
 WORKBENCH_TAG = latest
 REPO = $(REPO_HOST)
@@ -10,8 +10,8 @@ REPO = $(REPO_HOST)
 ###### app definition start ##########
 # APP分为N个阶段，避免重启时由于先后顺序出现故障 common_redis common_mysql market_mongo registry common_mongo micro_web
 # STEP1x 为基础镜像，如redis、mysql等; 或者是依赖度很高的基础模块，如 
-APP_STEP11 = 
 # APP_STEP11 = mongo mysql redis
+APP_STEP11 = 
 
 # STEP2x 为功能相关镜像，比如用户模块需要先于其他业务模块启动
 APP_STEP21 =
@@ -20,7 +20,8 @@ APP_STEP21 =
 APP_STEP31 =
 
 # STEP9x 为最后启动相关，如proxy，需最后才启动
-APP_STEP99 =  
+# APP_STEP99 = proxy
+APP_STEP99 = 
 
 ifndef $(APP)
 APP =  $(APP_STEP11) $(APP_STEP21) $(APP_STEP31) $(APP_STEP99)
@@ -63,14 +64,7 @@ one:
 
 # 启动服务
 run:
-	$(COMPOSE) up -d $(APP_STEP11)
-	@echo "sleep 2"; sleep 2
-	$(COMPOSE) up -d $(APP_STEP21)
-	@echo "sleep 2"; sleep 2
-	$(COMPOSE) up -d $(APP_STEP31)
-	#@echo "sleep 10"; sleep 10
-	#$(COMPOSE) up -d $(APP_STEP99)
-
+	$(COMPOSE) up -d $(APP_STEP11) $(APP_STEP21) $(APP_STEP31) $(APP_STEP99)
 	$(COMPOSE) ps
 
 # 重启服务，可传APP变量
