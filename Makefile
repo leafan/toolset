@@ -20,8 +20,8 @@ APP_STEP21 =
 APP_STEP31 =
 
 # STEP9x 为最后启动相关，如proxy，需最后才启动
-# APP_STEP99 = proxy
-APP_STEP99 = 
+APP_STEP99 = proxy
+# APP_STEP99 = 
 
 ifndef $(APP)
 APP =  $(APP_STEP11) $(APP_STEP21) $(APP_STEP31) $(APP_STEP99)

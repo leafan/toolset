@@ -74,6 +74,13 @@ make stop    APP=mysql      # just stop the mysql container
 All of the config files are under ${pwd}/config/${app_name}, which ${app_name} means the container name, such as mysql etc..
 You also can configure them follow the official documents ... 
 
+### Makefile
+If you want disable some app, can edit the Makefile of the section APP_STEP11-APP_STEP99 as you want.
+
+### Proxy
+Proxy is a nginx server which can do many things as you know.
+If you want to forward an api or server, configure the file in config/proxy/proxy.conf.
+
 ## Data directory
 The container data will be exported under ${pwd}/data/${app_name}, also ${app_name} means the container name.
 If you want to delete the data, just do: 
