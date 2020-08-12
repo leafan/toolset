@@ -31,7 +31,7 @@ endif
 
 
 ifndef $(BUILD_APP)
-BUILD_APP = explorer-server explorer-pc
+BUILD_APP =
 endif
 
 
