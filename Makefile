@@ -11,7 +11,7 @@ REPO = $(REPO_HOST)
 # APP分为N个阶段，避免重启时由于先后顺序出现故障 common_redis common_mysql market_mongo registry common_mongo micro_web
 # STEP1x 为基础镜像，如redis、mysql等; 或者是依赖度很高的基础模块，如 
 # APP_STEP11 = mongo mysql redis
-APP_STEP11 = 
+APP_STEP11 = mysql
 
 # STEP2x 为功能相关镜像，比如用户模块需要先于其他业务模块启动
 APP_STEP21 =
