@@ -2,7 +2,7 @@
 
 include .env
 
-COMPOSE = docker-compose -f compose/databases.yaml -f compose/proxy.yaml
+COMPOSE = docker-compose -f compose/proxy.yaml
 
 WORKBENCH_TAG = latest
 REPO = $(REPO_HOST)
